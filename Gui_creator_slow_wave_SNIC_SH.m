@@ -10,7 +10,7 @@ textdip = 11;
 maxLength = 125;
 %%change name here
 
-fig = uifigure('Position', [20, 50, 1500, 750], 'Name', 'Class 6','Color', [1 1 1]);
+fig = uifigure('Position', [20, 50, 1500, 750], 'Name', 'SNIC/SH','Color', [1 1 1]);
 
 Height = 735;
 % A slider
@@ -488,11 +488,11 @@ DriftSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [0, 0.5],
 
 %uilabel(fig, 'Position', [50,240, 100, 22], 'Text', 'Dynamical noise:');
 %%change title
-titleLabel = uilabel(fig, 'Position', [830, 700, 500, 40], 'Text', 'Class 6 - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
+titleLabel = uilabel(fig, 'Position', [830, 700, 500, 40], 'Text', 'SNIC/SH - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
    %change description
 descriptionLines = {
 
-    'Class 6s seizures have a saddle node invariant cycle (SNIC) onset and a saddle homoclinic (SH) offset. In the x1 time series, the SNIC onset creates a square root scaling of the frequency and the SH offset creates a logarithmic scaling of the frequency. At seizure onset, no DC shift occurs and the spiking rate increases in frequency. At seizure offset, there is a DC shift and the spiking rate decreases in frequency. '
+    'SNIC/SH seizures have a saddle node invariant cycle (SNIC) onset and a saddle homoclinic (SH) offset. In the x1 time series, the SNIC onset creates a square root scaling of the frequency and the SH offset creates a logarithmic scaling of the frequency. At seizure onset, no DC shift occurs and the spiking rate increases in frequency. At seizure offset, there is a DC shift and the spiking rate decreases in frequency. '
     };
 
 
@@ -567,7 +567,7 @@ ax2.Tag = 'PlotArea2';
 
 % Add a plot area to display the results
 
-   savefig(fig, 'Class6GUI.fig'); 
+   savefig(fig, 'SNIC_SH_GUI.fig'); 
 end
 
 function runSimulation(AIndex, BIndex,  k, sigma, acq_noise, tmax, frequency, drift, fig)
@@ -1687,11 +1687,11 @@ end
 
 xlabel_text = ax1.XLabel.String;
 if strcmp(xlabel_text, 'Adjusted time')
-filename = sprintf('Class_6_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
+filename = sprintf('SNIC_SH_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
         AIndex, BIndex, k, sigma, acq_noise, tmax, frequency, drift);
 else
 
-filename = sprintf('Class_6_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f.mat', ...
+filename = sprintf('SNIC_SH_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f.mat', ...
         AIndex, BIndex, k, sigma, acq_noise, tmax);
 end
 % Save the data to a .mat file
