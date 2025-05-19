@@ -4,11 +4,11 @@ createGUI();
 function createGUI()
 % Create the main figure window
 addpath('')
-fontsize = 8;
+fontsize = 9;
 mindip = 0;
 maxdip = 45;
-textdip = 8;
-maxLength = 150;
+textdip = 9.5;
+maxLength = 120;
 %%change name here
 addpath('GUI helper files');
 fig = uifigure('Position', [20, 50, 1300, 750], 'Name', 'Class SN/SH', 'Color',[1,1,1]);
@@ -191,61 +191,61 @@ for i = 1:numChunks
 end
 Height = Height - mindip;
 DstarSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [0, 0.5], 'Value', 0.5);
-Height = Height - maxdip;
-% Add labels for the sliders
-descriptionLines = {
-    'N'
-    '';
-    'The N parameter controls solution of resting state. Upper Branch (Case 1): Smoother transitions, reduced hysteresis. Lower Branches (Cases 2 and 3): Potential for hysteresis, with complex, path-dependent responses and multiple equilibria. The systems state may not revert immediately when external conditions are reversed, creating the characteristic hysteresis loop.'
-};
-% Calculate the number of lines for positioning
-combinedText = strjoin(descriptionLines(2:end), ' ');
-
-% Split the combined text into substrings of maximum length 600
-
-splitText = {};
-currentIdx = 1;
-
-while currentIdx <= length(combinedText)
-    if length(combinedText) - currentIdx + 1 <= maxLength
-        % If the remaining text is shorter than maxLength, take the rest of the text
-        splitText{end + 1} = combinedText(currentIdx:end);
-        break;
-    else
-        % Find the position to split the text without breaking words
-        endIdx = currentIdx + maxLength - 1;
-        spaceIdx = find(combinedText(currentIdx:endIdx) == ' ', 1, 'last');
-        if isempty(spaceIdx)
-            % If no space is found, split at maxLength
-            splitText{end + 1} = combinedText(currentIdx:endIdx);
-            currentIdx = endIdx + 1;
-        else
-            % Split at the last space within the limit
-            endIdx = currentIdx + spaceIdx - 1;
-            splitText{end + 1} = combinedText(currentIdx:endIdx);
-            currentIdx = endIdx + 1;
-        end
-    end
-end
-numChunks = numel(splitText);
-
-% Calculate the number of lines for positioning
- %Height = Height - maxdip;
-%numLines = numel(descriptionLines);
-lineHeight = 22; % Height of each line (adjust as needed)
-
-uilabel(fig, 'Position', [50,Height, 500, lineHeight], 'Text', descriptionLines{1}, 'FontWeight', 'bold', 'FontSize', fontsize);
-    Height = Height -  textdip;
-% Position and display each line as a separate uilabel
-for i = 1:numChunks
- 
-    uilabel(fig, 'Position', [50,Height, 600, lineHeight], 'Text', splitText{i}, 'FontSize', fontsize);
-    Height = Height -  textdip;
-    
-end
-Height = Height - mindip;
-NSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 3], 'Value', 1);
-
+%Height = Height - maxdip;
+% % Add labels for the sliders
+% descriptionLines = {
+%     'N'
+%     '';
+%     'The N parameter controls solution of resting state. Upper Branch (Case 1): Smoother transitions, reduced hysteresis. Lower Branches (Cases 2 and 3): Potential for hysteresis, with complex, path-dependent responses and multiple equilibria. The systems state may not revert immediately when external conditions are reversed, creating the characteristic hysteresis loop.'
+% };
+% % Calculate the number of lines for positioning
+% combinedText = strjoin(descriptionLines(2:end), ' ');
+% 
+% % Split the combined text into substrings of maximum length 600
+% 
+% splitText = {};
+% currentIdx = 1;
+% 
+% while currentIdx <= length(combinedText)
+%     if length(combinedText) - currentIdx + 1 <= maxLength
+%         % If the remaining text is shorter than maxLength, take the rest of the text
+%         splitText{end + 1} = combinedText(currentIdx:end);
+%         break;
+%     else
+%         % Find the position to split the text without breaking words
+%         endIdx = currentIdx + maxLength - 1;
+%         spaceIdx = find(combinedText(currentIdx:endIdx) == ' ', 1, 'last');
+%         if isempty(spaceIdx)
+%             % If no space is found, split at maxLength
+%             splitText{end + 1} = combinedText(currentIdx:endIdx);
+%             currentIdx = endIdx + 1;
+%         else
+%             % Split at the last space within the limit
+%             endIdx = currentIdx + spaceIdx - 1;
+%             splitText{end + 1} = combinedText(currentIdx:endIdx);
+%             currentIdx = endIdx + 1;
+%         end
+%     end
+% end
+% numChunks = numel(splitText);
+% 
+% % Calculate the number of lines for positioning
+%  %Height = Height - maxdip;
+% %numLines = numel(descriptionLines);
+% lineHeight = 22; % Height of each line (adjust as needed)
+% 
+% uilabel(fig, 'Position', [50,Height, 500, lineHeight], 'Text', descriptionLines{1}, 'FontWeight', 'bold', 'FontSize', fontsize);
+%     Height = Height -  textdip;
+% % Position and display each line as a separate uilabel
+% for i = 1:numChunks
+% 
+%     uilabel(fig, 'Position', [50,Height, 600, lineHeight], 'Text', splitText{i}, 'FontSize', fontsize);
+%     Height = Height -  textdip;
+% 
+% end
+% Height = Height - mindip;
+% NSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 3], 'Value', 1);
+%NSlider = 1;
 
 % Define the segments of the description
 descriptionLines = {
@@ -301,13 +301,13 @@ for i = 1:numChunks
 end
 Height = Height - mindip;
 %%change k value here
-kkSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [-0.1, 0.1], 'Value', 0.003);
+kkSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [0, 0.1], 'Value', 0.003);
 % Add sliders for 'input pink noise' and 'tmax'
 Height = Height - maxdip;
 descriptionLines = {
     'Dynamical Pink Noise'
 
-    'Dynamical pink noise, or parametric noise, is added to the fast variable (x1) of';
+    'Dynamical pink noise, or parametric noise, is added to the fast variable (x) of';
     '';
     'the governing model equations. This represents noise in the brain';
     '';
@@ -604,7 +604,7 @@ titleLabel = uilabel(fig, 'Position', [800, 700, 500, 40], 'Text', 'Class SN/SH 
    %change description
 descriptionLines = {
 
-    'Class SN/SH seizures have a saddle node (SN) onset bifurcation and a saddle homoclinic (SH) offset bifurcation. In the x1 time series, this appears as a DC shift that begins when the seizure starts and ends when the seizure stops. Spikes also slow, logarithmically, in frequency at seizure offset. Class SN/SH seizures are found in the Epileptor, which only revealed the most dominant dynamotype: SN/SH';
+    'Class SN/SH seizures have a saddle node (SN) onset bifurcation and a saddle homoclinic (SH) offset bifurcation. In the x time series, this appears as a DC shift that begins when the seizure starts and ends when the seizure stops. Spikes also slow, logarithmically, in frequency at seizure offset. Class SN/SH seizures are found in the Epileptor, which only revealed the most dominant dynamotype: SN/SH';
 };
 
 
@@ -655,17 +655,17 @@ for i = 1:numChunks
 end
 % Add a button to run the simulation
 runButton = uibutton(fig, 'Position', [630, 550, 150, 22], 'Text', 'Run Simulation', ...
-    'ButtonPushedFcn', @(btn, event) runSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value ,...
+    'ButtonPushedFcn', @(btn, event) runSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
 runButton = uibutton(fig, 'Position', [805, 550, 250, 22], 'Text', 'Run Simulation with postprocessing', ...
-    'ButtonPushedFcn', @(btn, event) runppSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
+    'ButtonPushedFcn', @(btn, event) runppSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, ...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
 runButton = uibutton(fig, 'Position', [1080, 550, 150, 22], 'Text', 'Run Video Simulation', ...
-    'ButtonPushedFcn', @(btn, event) runVideoSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
+    'ButtonPushedFcn', @(btn, event) runVideoSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
 buttomCaption = uilabel(fig, 'Position', [990, 520, 300, 22], 'Text', 'Note: May take up to 20 seconds to run', 'FontSize', fontsize);
 runButton = uibutton(fig, 'Position', [610, 50, 100, 22], 'Text', 'Save Simulation', ...
-    'ButtonPushedFcn', @(btn, event) get_mat_file(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
+    'ButtonPushedFcn', @(btn, event) get_mat_file(ASlider.Value, BSlider.Value, DstarSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
 buttomCaption = uilabel(fig, 'Position', [610, 20, 300, 22], 'Text', 'Save generated timeseries as a .mat', 'FontSize', fontsize);
 % Add the first plot area
@@ -681,7 +681,7 @@ ax2.Tag = 'PlotArea2';
    savefig(fig, 'SN_SH_GUI.fig'); 
 end
 
-function runSimulation(AIndex, BIndex,  dstar, N, k, sigma, acq_noise, tmax, frequency, drift, fig)
+function runSimulation(AIndex, BIndex,  dstar, k, sigma, acq_noise, tmax, frequency, drift, fig)
     addpath('GUI helper files');
     % Get the plot area
     load('bifurcation_crossing.mat')
@@ -703,7 +703,7 @@ end
     ax2 = uiaxes(fig, 'Position', [950, 100, 350,350]);
 ax2.Tag = 'PlotArea2';
     
-N = floor(N);
+N = 1;
 
     
     % Clear the existing plots
@@ -938,7 +938,7 @@ lgd.FontSize = 6;
 
 end
 
-function runVideoSimulation(AIndex, BIndex, dstar, N, k, sigma, acq_noise, tmax, frequency, drift, fig)
+function runVideoSimulation(AIndex, BIndex, dstar,  k, sigma, acq_noise, tmax, frequency, drift, fig)
 addpath('GUI helper files');
     % Get the plot area
     load('bifurcation_crossing.mat')
@@ -950,7 +950,7 @@ addpath('GUI helper files');
 ax2 = findobj(fig, 'Tag', 'PlotArea2');
 
 tstep = 0.01;
-
+N = 1;
  if ishandle(ax1)
     delete(ax1);
 end
@@ -1453,7 +1453,7 @@ end
 end
 
 
-function runppSimulation(AIndex, BIndex, dstar, N, k, sigma, acq_noise, tmax, frequency, drift, fig)
+function runppSimulation(AIndex, BIndex, dstar,  k, sigma, acq_noise, tmax, frequency, drift, fig)
 addpath('GUI helper files');
     % Get the plot area
     load('bifurcation_crossing.mat')
@@ -1479,7 +1479,7 @@ end
 ax2.Tag = 'PlotArea2';
 
 
-
+N = 1;
 
 
 A = SHl(:,floor(AIndex));
@@ -1519,7 +1519,7 @@ tspan = 0:tstep:tmax;
 
 % Class specific threshold
 
-N = floor(N);
+
 % Equilibrium Branch for Resting State
 
 
@@ -1818,7 +1818,7 @@ end
 
 
 end
-function get_mat_file(AIndex, BIndex, dstar, N, k, sigma, acq_noise, tmax, frequency, drift, fig)
+function get_mat_file(AIndex, BIndex, dstar, k, sigma, acq_noise, tmax, frequency, drift, fig)
     ax1 = findobj(fig, 'Tag', 'PlotArea1');
     lines = findobj(ax1, 'Type', 'Line');
 
@@ -1836,14 +1836,15 @@ end
 
 xlabel_text = ax1.XLabel.String;
 if strcmp(xlabel_text, 'Adjusted time')
-filename = sprintf('Sup_Sup_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
-        BIndex, AIndex, k, sigma, acq_noise,  frequency, drift);
+    filename = sprintf('SN_SH_timeseries_Offset_index_%d_Onset_index_%d_dstar_%.2f_k_%.2f_dynamical_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
+        AIndex, BIndex, dstar, k, sigma, tmax, acq_noise,  frequency, drift);
+
 
 else
 
 %change here to title for class
-filename = sprintf('SN_SH_timeseries_Offset_index_%d_Onset_index_%d_dstar_%.2f_N_%.2f_k_%.2f_dynamical_noise_%.2f_tMax_%.2f.mat', ...
-        AIndex, BIndex, dstar, N,k, sigma, tmax);
+filename = sprintf('SN_SH_timeseries_Offset_index_%d_Onset_index_%d_dstar_%.2f_k_%.2f_dynamical_noise_%.2f_tMax_%.2f.mat', ...
+        AIndex, BIndex, dstar, k, sigma, tmax);
 end
 
 

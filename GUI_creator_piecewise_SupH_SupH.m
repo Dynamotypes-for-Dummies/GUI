@@ -10,7 +10,7 @@ textdip = 11;
 maxLength = 125;
 %%change name here
 addpath(fullfile('GUI helper files'));
-fig = uifigure('Position', [20, 50, 1300, 750], 'Name', 'Sup/Sup', 'Color',[1,1,1]);
+fig = uifigure('Position', [20, 50, 1300, 750], 'Name', 'SupH/SupH', 'Color',[1,1,1]);
 Height = 735;
 % A slider
 %%change caption here 
@@ -194,7 +194,7 @@ Height = Height - maxdip;
 descriptionLines = {
     'Dynamical Pink Noise'
 
-    'Dynamical pink noise, or parametric noise, is added to the fast variable (x1) of';
+    'Dynamical pink noise, or parametric noise, is added to the fast variable (x) of';
     '';
     'the governing model equations. This represents noise in the brain';
     '';
@@ -435,13 +435,13 @@ DriftSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [0, 0.5],
 
 %uilabel(fig, 'Position', [50,240, 100, 22], 'Text', 'Dynamical noise:');
 %%change title
-titleLabel = uilabel(fig, 'Position', [830, 700, 500, 40], 'Text', 'Sup/Sup - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
+titleLabel = uilabel(fig, 'Position', [780, 700, 400, 40], 'Text', 'SupH/SupH - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
    %change description
 descriptionLines = {
 
-    'Sup/Sup seizures have a supercritical Hopf (SupH) onset bifurcation and a supercritical Hopf (SupH)  offset bifurcation. The path';
+    'SupH/SupH seizures have a supercritical Hopf (SupH) onset bifurcation and a supercritical Hopf (SupH)  offset bifurcation. The path';
     '';
-    'traverses though the seizure region and the rest region. The x1 time series does exhibits increasing amplitude at onset and decreasing'
+    'traverses though the seizure region and the rest region. The x time series does exhibits increasing amplitude at onset and decreasing'
     '';
    ' amplitude at offset. ';
    
@@ -456,7 +456,7 @@ lineHeight = 22; % Height of each line (adjust as needed)
 % Position and display each line as a separate uilabel
 for i = 1:numLines
  
-    uilabel(fig, 'Position', [620, Height, 850, lineHeight], 'Text', descriptionLines{i}, 'FontSize', 12);
+    uilabel(fig, 'Position', [620, Height, 850, lineHeight], 'Text', descriptionLines{i}, 'FontSize', 10);
     Height = Height -  10;
     
 end
@@ -486,7 +486,7 @@ ax2.Tag = 'PlotArea2';
 
 % Add a plot area to display the results
 
-   savefig(fig, 'Sup_Sup_GUI.fig'); 
+   savefig(fig, 'SupH_SupH_GUI.fig'); 
 end
 
 function runSimulation(AIndex, BIndex,  k, sigma, acq_noise,  frequency, drift, fig)
@@ -1629,11 +1629,11 @@ end
 
 xlabel_text = ax1.XLabel.String;
 if strcmp(xlabel_text, 'Adjusted time')
-filename = sprintf('Sup_Sup_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
+filename = sprintf('SupH_SupH_timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f_tMax_%.2f_adjusted_frequency_%.2f_electrode_drift_filter_%.2f.mat', ...
         BIndex, AIndex, k, sigma, acq_noise,  frequency, drift);
 else
 
-filename = sprintf('Sup_Sup__timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f.mat', ...
+filename = sprintf('SupH_SupH__timeseries_Offset_index_%d_Onset_index_%d_k_%.2f_dynamical_noise_%.2f_acquisition_noise_%.2f.mat', ...
         BIndex, AIndex, k, sigma, acq_noise);
 end
 % Save the data to a .mat file
@@ -2032,7 +2032,7 @@ data = [
 idx = randi([1,length(data)]);
 point = data(idx,:);
 end
-function point= get_random_point_Sup_Sup
+function point= get_random_point_SupH_SupH
 data = [
 0.0373, 0.2497, -0.3102;
 -0.0441, 0.2591, -0.3015;
@@ -2302,7 +2302,7 @@ p1 = Hopf(:,randomNumber)';
 %change here
 randomNumber2 = randi([600,750]);
 %random point in limit cycle
-p1_5 = get_random_point_Sup_Sup();
+p1_5 = get_random_point_SupH_SupH();
 %bifurcation curve
 p2 = Hopf(:,randomNumber2)' ;
 %fixed rest

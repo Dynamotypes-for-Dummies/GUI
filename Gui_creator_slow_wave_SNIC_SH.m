@@ -195,7 +195,7 @@ Height = Height - maxdip;
 descriptionLines = {
     'Dynamical Pink Noise'
 
-    'Dynamical pink noise, or parametric noise, is added to the fast variable (x1) of';
+    'Dynamical pink noise, or parametric noise, is added to the fast variable (x) of';
     '';
     'the governing model equations. This represents noise in the brain';
     '';
@@ -492,7 +492,7 @@ titleLabel = uilabel(fig, 'Position', [830, 700, 500, 40], 'Text', 'SNIC/SH - Pa
    %change description
 descriptionLines = {
 
-    'SNIC/SH seizures have a saddle node invariant cycle (SNIC) onset and a saddle homoclinic (SH) offset. In the x1 time series, the SNIC onset creates a square root scaling of the frequency and the SH offset creates a logarithmic scaling of the frequency. At seizure onset, no DC shift occurs and the spiking rate increases in frequency. At seizure offset, there is a DC shift and the spiking rate decreases in frequency. '
+    'SNIC/SH seizures have a saddle node invariant cycle (SNIC) onset and a saddle homoclinic (SH) offset. In the x time series, the SNIC onset creates a square root scaling of the frequency and the SH offset creates a logarithmic scaling of the frequency. At seizure onset, no DC shift occurs and the spiking rate increases in frequency. At seizure offset, there is a DC shift and the spiking rate decreases in frequency. '
     };
 
 
