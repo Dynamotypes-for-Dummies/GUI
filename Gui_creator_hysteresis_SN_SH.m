@@ -11,7 +11,7 @@ textdip = 8;
 maxLength = 150;
 %%change name here
 addpath('GUI helper files');
-fig = uifigure('Position', [20, 50, 1500, 750], 'Name', 'Class SN/SH', 'Color',[1,1,1]);
+fig = uifigure('Position', [20, 50, 1300, 750], 'Name', 'Class SN/SH', 'Color',[1,1,1]);
 Height = 735;
 % A slider
 %%change caption here 
@@ -600,7 +600,7 @@ DriftSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [0, 0.5],
 
 %uilabel(fig, 'Position', [50,240, 100, 22], 'Text', 'Dynamical noise:');
 %%change title
-titleLabel = uilabel(fig, 'Position', [830, 700, 500, 40], 'Text', 'Class SN/SH - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
+titleLabel = uilabel(fig, 'Position', [800, 700, 500, 40], 'Text', 'Class SN/SH - Parameter Control and Visualization', 'FontSize', 16, 'FontWeight', 'bold');
    %change description
 descriptionLines = {
 
@@ -649,31 +649,31 @@ maxLength = 300;
 % Position and display each line as a separate uilabel
 for i = 1:numChunks
  
-    uilabel(fig, 'Position', [620,Height, 850, lineHeight], 'Text', splitText{i}, 'FontSize', 12);
+    uilabel(fig, 'Position', [620,Height, 850, lineHeight], 'Text', splitText{i}, 'FontSize', 10);
     Height = Height -  20;
     
 end
 % Add a button to run the simulation
-runButton = uibutton(fig, 'Position', [680, 550, 150, 22], 'Text', 'Run Simulation', ...
+runButton = uibutton(fig, 'Position', [630, 550, 150, 22], 'Text', 'Run Simulation', ...
     'ButtonPushedFcn', @(btn, event) runSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value ,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
-runButton = uibutton(fig, 'Position', [880, 550, 250, 22], 'Text', 'Run Simulation with postprocessing', ...
+runButton = uibutton(fig, 'Position', [805, 550, 250, 22], 'Text', 'Run Simulation with postprocessing', ...
     'ButtonPushedFcn', @(btn, event) runppSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
-runButton = uibutton(fig, 'Position', [1180, 550, 150, 22], 'Text', 'Run Video Simulation', ...
+runButton = uibutton(fig, 'Position', [1080, 550, 150, 22], 'Text', 'Run Video Simulation', ...
     'ButtonPushedFcn', @(btn, event) runVideoSimulation(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
-buttomCaption = uilabel(fig, 'Position', [940, 520, 300, 22], 'Text', 'Note: May take up to 20 seconds to run', 'FontSize', fontsize);
+buttomCaption = uilabel(fig, 'Position', [990, 520, 300, 22], 'Text', 'Note: May take up to 20 seconds to run', 'FontSize', fontsize);
 runButton = uibutton(fig, 'Position', [610, 50, 100, 22], 'Text', 'Save Simulation', ...
     'ButtonPushedFcn', @(btn, event) get_mat_file(ASlider.Value, BSlider.Value, DstarSlider.Value, NSlider.Value,...
      kkSlider.Value, pinkNoiseSlider.Value, acqSlider.Value, TmaxSlider.Value, FrequencySlider.Value, DriftSlider.Value, fig));
 buttomCaption = uilabel(fig, 'Position', [610, 20, 300, 22], 'Text', 'Save generated timeseries as a .mat', 'FontSize', fontsize);
 % Add the first plot area
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 
 % Add the second plot area
-ax2 = uiaxes(fig, 'Position', [1050, 100, 400, 400]);
+ax2 = uiaxes(fig, 'Position', [950, 100, 350,350]);
 ax2.Tag = 'PlotArea2';
 
 % Add a plot area to display the results
@@ -694,13 +694,13 @@ ax2 = findobj(fig, 'Tag', 'PlotArea2');
  if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 
 if ishandle(ax2)
     delete(ax2);
 end
-    ax2 = uiaxes(fig, 'Position', [1050, 100, 400, 400]);
+    ax2 = uiaxes(fig, 'Position', [950, 100, 350,350]);
 ax2.Tag = 'PlotArea2';
     
 N = floor(N);
@@ -969,7 +969,7 @@ img = imread('hysterisis_legend.png'); % Replace 'your_image.jpg' with the path 
   
 
     % Create an axes component that covers the entire figure window
-    ax2 = uiaxes(fig, 'Position', [1050, 120, img_width/1.5, img_height/1.5]);
+    ax2 = uiaxes(fig, 'Position', [950, 120, img_width/1.5, img_height/1.5]);
 
     % Display the image in the axes component
     imshow(img, 'Parent', ax2);
@@ -990,7 +990,7 @@ if ishandle(ax2)
 end
 
 
-    ax2 = uiaxes(fig, 'Position', [1050, 100, 400, 400]);
+    ax2 = uiaxes(fig, 'Position', [950, 100, 350,350]);
 ax2.Tag = 'PlotArea2';
 
 
@@ -1199,7 +1199,7 @@ seizure = xtemp(onset:offset,1);
  if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 
 
@@ -1244,9 +1244,9 @@ slope = [slope; slope(end)];
 heatmap = zeros(size(slope));
 
 % Assign values based on the slope conditions
-heatmap(slope > 0.000001) = 1;          % Assign 1 if slope > 0.1
+heatmap(slope > 0) = 1;          % Assign 1 if slope > 0.1
 heatmap(slope <= 0.000001 & slope >= -0.000001) = 0;  % Assign 0 if -0.1 <= slope <= 0.1
-heatmap(slope < -0.000001) = -1;        % Assign -1 if slope < -0.1
+heatmap(slope <= 0) = -1;        % Assign -1 if slope < -0.1
 
 
 xlim(ax2, [-0.5 0.5]);
@@ -1371,7 +1371,7 @@ hold(ax1,'off');
 if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 % Add text to the axis
 x_position = 0.05; % X-coordinate of the text
@@ -1379,7 +1379,7 @@ y_position = 0.5; % Y-coordinate of the text
 str = 'Adjusting sampling frequency to match human data'; % The text to display
 
 % Use the text function to place the text on the plot
-text(ax1, x_position, y_position, str, 'FontSize', 15, 'Color', 'k');
+text(ax1, x_position, y_position, str, 'FontSize', 12, 'Color', 'k');
 %title(ax1, 'Adjusting sampling frequency to match human data');
 pause(2);
 cla(ax1);
@@ -1405,14 +1405,14 @@ end
 if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 x_position = 0.25; % X-coordinate of the text
 y_position = 0.5; % Y-coordinate of the text
 str = 'Applying electrode drift filter'; % The text to display
 
 % Use the text function to place the text on the plot
-text(ax1, x_position, y_position, str, 'FontSize', 15, 'Color', 'k');
+text(ax1, x_position, y_position, str, 'FontSize', 12, 'Color', 'k');
 pause(2);
 plot(ax1,time, seizure,'color','#696969','LineWidth',1)
 xlabel(ax1, 'Adjusted time');
@@ -1429,14 +1429,14 @@ noise_percentage= acq_noise/100;
 if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 x_position = 0.23; % X-coordinate of the text
 y_position = 0.5; % Y-coordinate of the text
 str = 'Adding signal acquisition noise'; % The text to display
 
 % Use the text function to place the text on the plot
-text(ax1, x_position, y_position, str, 'FontSize', 15, 'Color', 'k');
+text(ax1, x_position, y_position, str, 'FontSize', 12, 'Color', 'k');
 pause(2);
 plot(ax1,time, seizure,'color','#696969','LineWidth',1)
 xlabel(ax1, 'Adjusted time');
@@ -1469,13 +1469,13 @@ tstep = 0.01;
  if ishandle(ax1)
     delete(ax1);
 end
-ax1 = uiaxes(fig, 'Position', [600, 100, 400, 400]);
+ax1 = uiaxes(fig, 'Position', [600, 100, 350,350]);
 ax1.Tag = 'PlotArea1';
 
 if ishandle(ax2)
     delete(ax2);
 end
-    ax2 = uiaxes(fig, 'Position', [1050, 100, 400, 400]);
+    ax2 = uiaxes(fig, 'Position', [950, 100, 350,350]);
 ax2.Tag = 'PlotArea2';
 
 
@@ -2075,5 +2075,4 @@ function [E,F,C,r]=Parametrization_3PointsCircle(p1,p2,p3)
     r=norm(p1-C);
 
 end
-
 
