@@ -73,7 +73,7 @@ for i = 1:numChunks
 end
 Height = Height - mindip;
 %% 
-BSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 62], 'Value', 1);
+BSlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 14], 'Value', 1);
 Height = Height - maxdip;
 
 %B Slider
@@ -126,7 +126,7 @@ for i = 1:numChunks
     
 end
 Height = Height - mindip;
-ASlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 14], 'Value', 4);
+ASlider = uislider(fig, 'Position', [50,Height, 500, 3], 'Limits', [1, 124], 'Value', 4);
 Height = Height - maxdip;
 descriptionLines = {
     'Dstar'
@@ -638,7 +638,7 @@ N = 1;
 
 
 
-A = SHl(:,floor(AIndex));
+A = Homoclinic_to_saddle(:,floor(AIndex));
 B = SNr_LCs(:,floor(BIndex));
 A = A';
 B = B';
@@ -850,7 +850,7 @@ end
 ax2.Tag = 'PlotArea2';
 
 
-A = SHl(:,floor(AIndex));
+A = Homoclinic_to_saddle(:,floor(AIndex));
 B = SNr_LCs(:,floor(BIndex));
 A = A';
 B = B';
@@ -1043,11 +1043,11 @@ n = length(seizure);
 interval = 500;
 hold(ax1,'on')
 % Calculate Onset Times
-[pks,times]=findpeaks(x(:,3),'MinPeakProminence',0.005);
+[pks,times]=findpeaks(x(:,3),'MinPeakProminence',0.05);
 onset_time = times*tstep;
 
 % Calculate Offset Times
-[pks2,times2]=findpeaks(-x(:,3),'MinPeakProminence',0.005);
+[pks2,times2]=findpeaks(-x(:,3),'MinPeakProminence',0.05);
 offset_time = times2*tstep;
 
 
@@ -1277,7 +1277,7 @@ ax2.Tag = 'PlotArea2';
 N = 1;
 
 
-A = SHl(:,floor(AIndex));
+A = Homoclinic_to_saddle(:,floor(AIndex));
 B = SNr_LCs(:,floor(BIndex));
 A = A';
 B = B';
@@ -1446,11 +1446,11 @@ n = length(seizure);
 interval = 500;
 hold(ax1,'on')
 % Calculate Onset Times
-[pks,times]=findpeaks(x(:,3),'MinPeakProminence',0.005);
+[pks,times]=findpeaks(x(:,3),'MinPeakProminence',0.05);
 onset_time = times*tstep;
 
 % Calculate Offset Times
-[pks2,times2]=findpeaks(-x(:,3),'MinPeakProminence',0.005);
+[pks2,times2]=findpeaks(-x(:,3),'MinPeakProminence',0.05);
 offset_time = times2*tstep;
 
 

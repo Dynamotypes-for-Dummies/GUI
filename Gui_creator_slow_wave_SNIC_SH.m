@@ -1317,10 +1317,14 @@ ylabel(ax1, "Simulated Seizure")
 title(ax1, 'Timeseries');
 pause(3);
 
-noise_percentage= acq_noise/100;
+min_val = min(seizure);
+max_val = max(seizure);
+    noise_percentage= acq_noise/100;
      L = length(seizure);
-    noise = pinknoise([1,L],-1,5.69e3*noise_percentage); 
-   seizure = seizure + noise';
+    data = (seizure - min_val) / (max_val - min_val);
+rms_signal = get_amp(data, new_sampling_frequency);
+normalized_data = data;
+seizure = add_pink_noise(normalized_data, rms_signal, noise_percentage, new_sampling_frequency);
 
 
 if ishandle(ax1)
@@ -1600,7 +1604,7 @@ return;
 end 
 
 
-[pks,locs] = findpeaks(seizure(floor(onset_index):floor(offset_index)), 'MinPeakProminence', 0.35);
+[pks,locs] = findpeaks(seizure(floor(onset_index(1)):floor(offset_index(1))), 'MinPeakProminence', 0.35);
 
 
 
@@ -1647,11 +1651,14 @@ HPF1 = designfilt('highpassiir', ...       % Response type
 
 seizure= filter(HPF1,seizure);
 end
-
+min_val = min(seizure);
+max_val = max(seizure);
 noise_percentage= acq_noise/100;
      L = length(seizure);
-    noise = pinknoise([1,L],-1,5.69e3*noise_percentage); 
-   seizure = seizure + noise';
+    data = (seizure - min_val) / (max_val - min_val);
+rms_signal = get_amp(data, new_sampling_frequency);
+normalized_data = data;
+seizure = add_pink_noise(normalized_data, rms_signal, noise_percentage, new_sampling_frequency);
 
 
 
@@ -1930,3 +1937,52 @@ end
 
 
 
+function noisy_signal = add_pink_noise(signal, rms_signal, noise_amplitude_ratio, fs)
+    % Inputs:
+    % signal - input signal (1D array)
+    % noise_amplitude_ratio - fraction of signal amplitude for noise (e.g., 0.4 for 40%)
+    
+    % Compute the RMS amplitude of the signal
+    
+    
+    % Generate pink noise of the same length as the signal
+    % Pink noise can be generated using dsp.ColoredNoise in MATLAB
+    L = length(signal);
+    pink_noise = pinknoise([1,L],-1,10000)';
+    
+ 
+    % 
+    % % % Scale the noise so its amplitude is noise_amplitude_ratio of the signal's amplitude
+    % scaling_factor = noise_amplitude_ratio * (1 / rms_noise);
+    % scaled_noise = pink_noise * scaling_factor;
+    min_val = min(pink_noise(:));
+max_val = max(pink_noise(:));
+scaled_noise = noise_amplitude_ratio*(pink_noise - min_val) / (max_val - min_val);
+min_val = min(signal(:));
+max_val = max(signal(:));
+scaled_signal = (signal - min_val) / (max_val - min_val);
+    % Add the scaled noise to the original signal
+    noisy_signal = scaled_signal + scaled_noise;
+end
+
+function amp = get_amp(signal, fs)
+hpFilt = designfilt('highpassfir', 'FilterOrder', 5, ...
+                   'CutoffFrequency', 5, 'SampleRate', fs);
+
+signal= filter(hpFilt, signal);
+[peaks,locs] = findpeaks(signal ,'MinPeakProminence', 0.15);
+[troughs_neg,locs_troughs] = findpeaks(signal, 'MinPeakProminence', 0.15);
+troughs = -1*troughs_neg;
+
+newnew = [];
+len = 0;
+if length(troughs) > length(peaks)
+    len = length(peaks);
+else
+    len = length(troughs);
+end
+for i = 1:len
+    newnew = [newnew; abs( peaks(i)-troughs(i))];
+end
+amp = mean(newnew);
+end
